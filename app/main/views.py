@@ -6,7 +6,7 @@ from . import main
 from .forms import QueryForm
 import random
 from math import floor
-from flask_paginate import Pagination
+from flask.ext.paginate import Pagination
 from datetime import date
 
 

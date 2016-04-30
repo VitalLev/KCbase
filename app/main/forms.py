@@ -1,4 +1,4 @@
-from flask_wtf import Form
+from flask.ext.wtf import Form
 from wtforms.fields.html5 import DateTimeField, DateField
 from wtforms import SubmitField, TextField, SelectMultipleField
 from wtforms.validators import Required
@@ -98,8 +98,8 @@ country_list = [
         ]
 
 class QueryForm(Form):
-    datefrom = DateField('Start date')
-    dateto = DateField('End date')
+    datefrom = DateField('Start date(ex. 18-Apr-2016)')
+    dateto = DateField('End date(ex. 19-Mar-2016)')
     text = TextField('Post content search')
 
     country = SelectMultipleField(label="Countries (use CTRL for multiple select)", choices=country_list)
