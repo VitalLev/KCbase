@@ -10,9 +10,9 @@ class Config:
     MAIL_USE_TLS = True
     MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
-    FLASKY_MAIL_SUBJECT_PREFIX = '[BDKC]'
-    FLASKY_MAIL_SENDER = 'BDKC Admin'
-    FLASKY_ADMIN = os.environ.get('BDKC_ADMIN')
+    KCbase_MAIL_SUBJECT_PREFIX = '[KCbase]'
+    KCbase_MAIL_SENDER = 'KCbase Admin'
+    KCbase_ADMIN = os.environ.get('KCbase_ADMIN')
 
     @staticmethod
     def init_app(app):
