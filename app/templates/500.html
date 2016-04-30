@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block title %}Flasky - Internal Server Error{% endblock %}
+
+{% block page_content %}
+<div class="page-header">
+    <h1 align="middle">500 - Sorry</h1>
+    <p style="text-align:center;"><img style="padding: 50px 50px 50px 50px;" src="{{ url_for('static', filename='feels bad mang.png') }}"></p>
+</div>
+{% endblock %}

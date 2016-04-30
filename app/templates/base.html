@@ -1,0 +1,102 @@
+{% extends "bootstrap/base.html" %}
+
+{% block title %}KCbase{% endblock %}
+
+{% block head %}
+{{ super() }}
+<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+<link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['geochart', 'corechart']});
+      google.charts.setOnLoadCallback(drawRegionsMap);
+      function drawRegionsMap() {
+        var geodata = new google.visualization.arrayToDataTable(
+        [
+            ["Country","Posts"],
+            {% for country in geodata %}
+                ["{{country[0]}}",{{country[1]}}],
+            {% endfor %}
+        ]
+        );
+        var options = {
+          height: 330,
+          width: 540
+          };
+        var geochart = new google.visualization.GeoChart(document.getElementById('regions_div'));
+        geochart.draw(geodata, options);
+
+        var data = google.visualization.arrayToDataTable([
+          ['Date', 'Posts'],
+          {% for date in timedata %}
+                ["{{date[0]}}",{{date[1]}}],
+            {% endfor %}
+        ]);
+
+        var options = {
+          title: 'Posts by date',
+          curveType: 'function',
+          legend: { position: 'bottom' },
+          hAxis: {showTextEvery: 5, minTextSpacing: 5 },
+          legend: { position: 'none' },
+          chartArea:{left:50,top:10,width:"95%",height:"92%"},
+          height: 330,
+          width: 540
+
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('time_div'));
+
+        chart.draw(data, options);
+      }
+</script>
+
+
+
+{% endblock %}
+
+{% block navbar %}
+<div class="navbar navbar-default" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{{ url_for('main.index') }}">KCbase</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="{{ url_for('main.index') }}">Home</a></li>
+            </ul>
+            <ul class="nav navbar-nav">
+                <li><a href="{{ url_for('main.random_post') }}">Random post</a></li>
+            </ul>
+            <ul class="nav navbar-nav">
+                <li><a href="{{ url_for('main.queries') }}">Queries</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    {% for message in get_flashed_messages() %}
+    <div class="alert alert-warning">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        {{ message }}
+    </div>
+    {% endfor %}
+
+    {% block page_content %}{% endblock %}
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+{{ moment.include_moment() }}
+{% endblock %}

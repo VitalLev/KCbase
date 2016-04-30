@@ -1,0 +1,6 @@
+#regions_div {
+    display:block !important;
+}
+#regions_div.show {
+    display: none !important;
+}

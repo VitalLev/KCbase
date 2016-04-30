@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}KCbase{% endblock %}
+
+{% block page_content %}
+<div class="page-header">
+    <table class="table">
+    <thead>
+      <tr>
+        <th>Country</th>
+        <th>Date</th>
+        <th>Post ID</th>
+        <th>Contents</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{ country }}</td>
+        <td>{{ date }}</td>
+        <td>{{ post_id }}</td>
+        <td>{{ post_text }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}
