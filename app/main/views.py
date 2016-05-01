@@ -58,22 +58,20 @@ def results():
         q = q.filter(Post.date >= session["datefrom"])
     if session["dateto"]:
         q = q.filter(Post.date < session["dateto"])
-    allposts = q.all()
+
     geodata = {}
     chartgeodata = []
     timedata = {}
     charttimedata = []
-    for post in allposts:
+
+    for post in qgen(q):
         country = post.country
         country = get_country_code(country)
         if country not in geodata.keys():
             geodata[country] = 1
         else:
             geodata[country] = geodata[country] + 1
-
-
         date = str(post.date).split(' ')[0]
-
         if date not in timedata.keys():
             timedata[date] = 1
         else:
@@ -355,3 +353,18 @@ def get_country_code(country_name):
         country_code = country_name
         #print(country_code)
     return country_code
+
+
+def qgen(query):
+    WINDOW_SIZE = 10000
+    start = 0
+    while True:
+        stop = start + WINDOW_SIZE
+        things = query.slice(start, stop).all()
+        print(things)
+        if len(things)==0:
+            break
+        for thing in things:
+            yield(thing)
+        start += WINDOW_SIZE
+        print("Start: {}".format(start))
