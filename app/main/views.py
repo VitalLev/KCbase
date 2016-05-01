@@ -361,10 +361,10 @@ def qgen(query):
     while True:
         stop = start + WINDOW_SIZE
         things = query.slice(start, stop).all()
-        print(things)
+        #print(things)
         if len(things)==0:
             break
         for thing in things:
             yield(thing)
         start += WINDOW_SIZE
-        print("Start: {}".format(start))
+        #print("Start: {}".format(start))
